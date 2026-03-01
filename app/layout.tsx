@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Inter_Tight, Manrope } from "next/font/google"
 import "./globals.css"
 import VisibilityProvider from "@/components/visibility-provider"
+import ThemeProvider from "@/components/theme-provider"
 
 const interTight = Inter_Tight({
   subsets: ["latin"],
@@ -29,10 +30,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${interTight.variable} ${manrope.variable} antialiased dark`}>
+    <html lang="en" className={`${interTight.variable} ${manrope.variable} antialiased`}>
       <head />
       <body>
-        <VisibilityProvider>{children}</VisibilityProvider>
+        <ThemeProvider>
+          <VisibilityProvider>{children}</VisibilityProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

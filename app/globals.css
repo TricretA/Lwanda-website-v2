@@ -7,7 +7,47 @@
 :root {
   --font-sans: var(--font-inter-tight);
   --font-serif: var(--font-manrope);
-  /* Permanent dark theme tokens */
+  /* Light theme tokens */
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #DA8A16;
+  --primary-foreground: #1C1C21;
+  --secondary: #6D4BEF;
+  --secondary-foreground: #ffffff;
+  --muted: #f3f4f6;
+  --muted-foreground: #4b5563;
+  --accent: #6D4BEF;
+  --accent-foreground: #1C1C21;
+  --destructive: #EF4444;
+  --destructive-foreground: #ffffff;
+  --border: #e5e7eb;
+  --input: #f9fafb;
+  --ring: #DA8A16;
+  --chart-1: #DA8A16;
+  --chart-2: #6D4BEF;
+  --chart-3: #EBAA62;
+  --chart-4: #F2C27B;
+  --chart-5: #3FBF6F;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0f172a;
+  --sidebar-primary: #DA8A16;
+  --sidebar-primary-foreground: #1C1C21;
+  --sidebar-accent: #6D4BEF;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #e5e7eb;
+  --sidebar-ring: #DA8A16;
+  --visibility-text-scale: 1;
+  --visibility-contrast: 1;
+  --visibility-saturation: 1;
+  color-scheme: light;
+}
+
+.dark {
+  /* Dark theme tokens (were previously in :root) */
   --background: #1C1C21;
   --foreground: #F7F3ED;
   --card: #1F1F25;
@@ -40,10 +80,6 @@
   --sidebar-accent-foreground: #1C1C21;
   --sidebar-border: #2E2E36;
   --sidebar-ring: #DA8A16;
-  --visibility-text-scale: 1;
-  --visibility-contrast: 1;
-  --visibility-saturation: 1;
-  /* Force dark color scheme for form controls, scrollbars, etc. */
   color-scheme: dark;
 }
 
@@ -148,8 +184,3 @@
     font-weight: normal;
   }
 }
-  :root .bg-muted, :root .bg-muted * { color: black !important; color: #000000 !important; }
-  :root .bg-background, :root .bg-background * { color: black !important; color: #000000 !important; }
-  /* Ensure dark foreground on muted/background regardless of media preferences */
-  :root .bg-muted, :root .bg-muted * { color: white !important; color: #ffffff !important; }
-  :root .bg-background, :root .bg-background * { color: white !important; color: #ffffff !important; }

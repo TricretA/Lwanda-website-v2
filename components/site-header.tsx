@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 import { Menu, X, ChevronDown } from "@/components/icons"
+import ThemeToggle from "@/components/theme-toggle"
 
 export function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -99,6 +100,7 @@ export function SiteHeader() {
             >
               Donate
             </Link>
+            <ThemeToggle />
 
             {/* Mobile Menu Button */}
             <button
