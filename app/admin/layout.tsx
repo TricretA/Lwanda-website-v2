@@ -23,6 +23,9 @@ export default function AdminLayout({
                 <Link href="/admin/leadership">Leadership Team</Link>
             </Button>
             <Button variant="ghost" asChild className="justify-start my-2 bg-yellow-400 text-black hover:bg-yellow-500">
+                <Link href="/admin/leadership/review">Review Images</Link>
+            </Button>
+            <Button variant="ghost" asChild className="justify-start my-2 bg-yellow-400 text-black hover:bg-yellow-500">
                 <Link href="/admin/gallery">Upload Image</Link>
             </Button>
             <Button variant="ghost" asChild className="justify-start my-2 bg-yellow-400 text-black hover:bg-yellow-500">

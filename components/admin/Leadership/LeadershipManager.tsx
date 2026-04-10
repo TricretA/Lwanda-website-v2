@@ -133,7 +133,7 @@ export default function LeadershipManager() {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const f = e.target.files[0]
-      const allowed = ["image/jpeg", "image/png", "image/webp"]
+      const allowed = ["image/jpeg", "image/jpg", "image/png", "image/webp"]
       if (!allowed.includes(f.type)) {
         toast.error("Only JPG, PNG, or WEBP images are allowed")
         return
@@ -204,11 +204,26 @@ export default function LeadershipManager() {
     const ctx = canvas.getContext("2d") as CanvasRenderingContext2D
     ctx.imageSmoothingEnabled = true
     ctx.drawImage(img, sx, sy, sw, sh, 0, 0, outSize, outSize)
-    const preview = canvas.toDataURL("image/webp", 0.9)
-    const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/webp", 0.9))
+    let preview = ""
+    try {
+      preview = canvas.toDataURL("image/webp", 0.9)
+    } catch {
+      // ignore and fallback below
+    }
+    if (!preview || !preview.startsWith("data:image/webp")) {
+      preview = canvas.toDataURL("image/png", 0.92)
+    }
+    let blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/webp", 0.9))
+    let ext = ".webp"
+    let mime = "image/webp"
+    if (!blob) {
+      blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/png", 0.92))
+      ext = ".png"
+      mime = "image/png"
+    }
     URL.revokeObjectURL(url)
     if (!blob) throw new Error("Failed to process image")
-    const processed = new File([blob], file.name.replace(/\.[^.]+$/, "") + ".webp", { type: "image/webp" })
+    const processed = new File([blob], file.name.replace(/\.[^.]+$/, "") + ext, { type: mime })
     return { file: processed, preview }
   }
 
@@ -222,7 +237,7 @@ export default function LeadershipManager() {
     return "Other"
   }
 
-  const uploadProfileImage = async (leaderId: string, position: string, file: File): Promise<string> => {
+  const uploadProfileImage = async (leaderId: string, position: string, file: File, pending: boolean = true): Promise<string> => {
     await checkAdmin()
     const { data: sessionData } = await supabase.auth.getSession()
     const token = sessionData?.session?.access_token
@@ -240,6 +255,7 @@ export default function LeadershipManager() {
         filename: file.name,
         size: file.size,
         type: file.type,
+        pending,
       }),
     })
     if (!initRes.ok) {
@@ -266,6 +282,7 @@ export default function LeadershipManager() {
       }
       xhr.onerror = () => reject(new Error("Network error during upload"))
       xhr.setRequestHeader("Content-Type", file.type)
+      try { xhr.setRequestHeader("x-upsert", "true") } catch {}
       xhr.send(file)
     })
     return publicUrl as string
@@ -305,13 +322,14 @@ export default function LeadershipManager() {
       if (editingLeader) {
         // EDIT MODE
         if (imageFile) {
-             const f = processedFile || imageFile
-             image_path = await uploadProfileImage(editingLeader.id, formData.position, f)
+          const f = processedFile || imageFile
+          await uploadProfileImage(editingLeader.id, formData.position, f, true)
+          toast.success("Image uploaded for review. It will appear after approval.")
         }
 
         const { error } = await supabase
           .from("leadership")
-          .update({ ...payload, image_path })
+          .update({ ...payload })
           .eq("id", editingLeader.id)
         
         if (error) throw error
@@ -330,12 +348,9 @@ export default function LeadershipManager() {
         
         // 2. Upload image if exists
         if (imageFile && newLeader) {
-            const f = processedFile || imageFile
-            const publicUrl = await uploadProfileImage(newLeader.id, formData.position, f)
-            await supabase
-              .from("leadership")
-              .update({ image_path: publicUrl })
-              .eq("id", newLeader.id)
+          const f = processedFile || imageFile
+          await uploadProfileImage(newLeader.id, formData.position, f, true)
+          toast.success("Image uploaded for review. It will appear after approval.")
         }
         toast.success("Leader created successfully")
       }
@@ -426,10 +441,19 @@ export default function LeadershipManager() {
     if (!publicUrl) return ""
     try {
       const u = new URL(publicUrl)
-      const idx = u.pathname.indexOf("/leadership/")
-      if (idx === -1) return publicUrl
-      const storagePath = u.pathname.slice(idx + "/leadership/".length)
-      const res = supabase.storage.from("leadership").getPublicUrl(storagePath, { transform: { width, height: width, quality, resize: "cover" } })
+      const buckets = ["/leadership/", "/leaders/"]
+      let bucket = "leadership"
+      let storagePath = ""
+      for (const b of buckets) {
+        const idx = u.pathname.indexOf(b)
+        if (idx !== -1) {
+          storagePath = u.pathname.slice(idx + b.length)
+          bucket = b.replace(/\//g, "") // leadership or leaders
+          break
+        }
+      }
+      if (!storagePath) return publicUrl
+      const res = supabase.storage.from(bucket).getPublicUrl(storagePath, { transform: { width, height: width, quality, resize: "cover" } })
       return res.data.publicUrl || publicUrl
     } catch {
       return publicUrl
@@ -558,7 +582,7 @@ export default function LeadershipManager() {
       )}
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-[95vw] sm:max-w-[520px] overflow-hidden">
+        <DialogContent className="max-w-[95vw] sm:max-w-[560px] max-h-[85vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{editingLeader ? "Edit Leader" : "Add Leader"}</DialogTitle>
           </DialogHeader>

@@ -73,7 +73,7 @@ export default function StoriesPage({ searchParams }: { searchParams?: Record<st
       {/* Page Header */}
       <section className="relative py-24 bg-muted text-center">
         {/* Hero Background */}
-        <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 z-0">
             <img src={heroUrl} alt="Stories Hero" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-black/50" />
         </div>
