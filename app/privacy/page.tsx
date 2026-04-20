@@ -71,7 +71,7 @@ export default function PrivacyPage() {
             <h2 className="font-sans text-2xl font-bold text-foreground mb-4 pt-12">6. Contact Us</h2>
             <p className="font-serif text-muted-foreground">
               If you have questions or comments about this Privacy Policy, please contact us at{" "}
-              {"{privacy@ke258lwanda.org}"} or call {"{+254 XXX XXX XXX}"}.
+              {"{ke258fgcklwandacdc@gmail.com}"} or call {"{+254 723 783 472}"}.
             </p>
           </section>
 
