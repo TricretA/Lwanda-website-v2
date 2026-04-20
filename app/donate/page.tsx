@@ -73,24 +73,24 @@ export default async function DonatePage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                 <div className="text-center p-4 rounded-lg bg-muted">
                   <div className="text-sm font-serif text-muted-foreground">Paybill Number</div>
-                  <div className="font-sans text-2xl font-bold text-foreground">303030</div>
+                  <div className="font-sans text-2xl font-bold text-foreground">400200</div>
                 </div>
                 <div className="text-center p-4 rounded-lg bg-muted">
                   <div className="text-sm font-serif text-muted-foreground">Account Number</div>
-                  <div className="font-sans text-2xl font-bold text-foreground">2032984005</div>
+                  <div className="font-sans text-2xl font-bold text-foreground">01102666711001</div>
                 </div>
                 <div className="text-center p-4 rounded-lg bg-muted">
                   <div className="text-sm font-serif text-muted-foreground">Recipient</div>
-                  <div className="font-sans text-xl font-semibold text-foreground">Lwanda FGCK CDC...</div>
+                  <div className="font-sans text-xl font-semibold text-foreground">CHURCHES OF KENYA</div>
                 </div>
               </div>
               <div className="space-y-3">
                 <h3 className="font-sans text-xl font-semibold text-foreground">How to Pay via M-Pesa</h3>
                 <ol className="list-decimal pl-5 text-muted-foreground font-serif">
                   <li>Open M-Pesa and choose Paybill.</li>
-                  <li>Enter Paybill <span className="font-sans font-semibold text-foreground">303030</span>.</li>
-                  <li>Enter Account <span className="font-sans font-semibold text-foreground">2032984005</span>.</li>
-                  <li>Enter your chosen amount and confirm recipient “Lwanda FGCK CDC...”.</li>
+                  <li>Enter Paybill <span className="font-sans font-semibold text-foreground">400200</span>.</li>
+                  <li>Enter Account <span className="font-sans font-semibold text-foreground">01102666711001</span>.</li>
+                  <li>Enter your chosen amount and confirm recipient “CHURCHES OF KENYA”.</li>
                   <li>Complete payment and save your confirmation.</li>
                 </ol>
                 <p className="text-sm text-muted-foreground">Thank you for partnering with us.</p>
