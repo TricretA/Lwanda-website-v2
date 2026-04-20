@@ -70,7 +70,7 @@ export default async function HomePage() {
           <div className="grid grid-cols-12 gap-6">
             <div className="col-span-12 sm:col-span-6 lg:col-span-3">
               <StatCard
-              value="497"
+              value="350+"
               label="Children Supported"
               description="Through our three core programs"
               icon={<Users className="w-6 h-6" />}
@@ -86,7 +86,7 @@ export default async function HomePage() {
             </div>
             <div className="col-span-12 sm:col-span-6 lg:col-span-3">
               <StatCard
-              value="12"
+              value="1"
               label="University Students"
               description="Currently pursuing higher education"
               icon={<GraduationCap className="w-6 h-6" />}
