@@ -81,7 +81,7 @@ export default async function DonatePage() {
                 </div>
                 <div className="text-center p-4 rounded-lg bg-muted">
                   <div className="text-sm font-serif text-muted-foreground">Recipient</div>
-                  <div className="font-sans text-xl font-semibold text-foreground">CHURCHES OF KENYA</div>
+                  <div className="font-sans text-xl font-semibold text-foreground">FULL GOSPEL CHURCHES OF KENYA</div>
                 </div>
               </div>
               <div className="space-y-3">
@@ -90,7 +90,7 @@ export default async function DonatePage() {
                   <li>Open M-Pesa and choose Paybill.</li>
                   <li>Enter Paybill <span className="font-sans font-semibold text-foreground">400200</span>.</li>
                   <li>Enter Account <span className="font-sans font-semibold text-foreground">01102666711001</span>.</li>
-                  <li>Enter your chosen amount and confirm recipient “CHURCHES OF KENYA”.</li>
+                  <li>Enter your chosen amount and confirm recipient “FULL GOSPEL CHURCHES OF KENYA”.</li>
                   <li>Complete payment and save your confirmation.</li>
                 </ol>
                 <p className="text-sm text-muted-foreground">Thank you for partnering with us.</p>
